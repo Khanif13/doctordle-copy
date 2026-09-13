@@ -4,8 +4,10 @@ namespace App\Livewire\Quizzes;
 
 use App\Models\Quiz;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
 use Livewire\Component;
 
+#[Layout('layouts.app')]
 class Index extends Component
 {
     public string $title = '';

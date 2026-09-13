@@ -6,19 +6,18 @@ use App\Models\Clue;
 use App\Models\Question;
 use App\Models\Quiz;
 use Illuminate\Support\Facades\Auth;
+use Livewire\Attributes\Layout;
 use Livewire\Attributes\Locked;
 use Livewire\Component;
 
+#[Layout('layouts.app')]
 class Manage extends Component
 {
     #[Locked]
     public Quiz $quiz;
 
-    // New-question form
     public string $newCasePrompt = '';
     public string $newCorrectAnswer = '';
-
-    // New-clue text, keyed by question id: [$questionId => $text]
     public array $newClueText = [];
 
     public function mount(Quiz $quiz): void
