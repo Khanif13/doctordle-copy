@@ -7,6 +7,39 @@
     </div>
 
     <div class="bg-white shadow rounded-lg p-6">
+        <h3 class="font-medium text-slate-800 mb-1">Bulk import from CSV</h3>
+        <p class="text-xs text-slate-500 mb-4">
+            Header row: case_prompt,correct_answer,clue1,clue2,... — add as many clue columns as you like, leave a cell
+            blank to skip a clue.
+        </p>
+
+        @if ($csvSuccessMessage)
+            <div class="mb-4 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-700 text-sm p-3">
+                {{ $csvSuccessMessage }}
+                @if (count($csvSkippedRows))
+                    <br>Skipped row(s) missing case_prompt or correct_answer: {{ implode(', ', $csvSkippedRows) }}
+                @endif
+            </div>
+        @endif
+
+        <form wire:submit="importCsv" class="space-y-3">
+            <input type="file" wire:model="csvFile" accept=".csv,text/csv"
+                class="block w-full text-sm text-slate-600 file:mr-4 file:rounded-lg file:border-0 file:bg-slate-100 file:px-4 file:py-2 file:text-sm file:font-medium file:text-slate-700 hover:file:bg-slate-200">
+            @error('csvFile')
+                <p class="text-sm text-red-600">{{ $message }}</p>
+            @enderror
+
+            <div wire:loading wire:target="csvFile" class="text-xs text-slate-400">Uploading...</div>
+
+            <button type="submit" wire:loading.attr="disabled" wire:target="importCsv"
+                class="rounded-lg bg-slate-700 text-white px-4 py-2 text-sm font-medium hover:bg-slate-600 disabled:opacity-50">
+                <span wire:loading.remove wire:target="importCsv">Import</span>
+                <span wire:loading wire:target="importCsv">Importing...</span>
+            </button>
+        </form>
+    </div>
+
+    <div class="bg-white shadow rounded-lg p-6">
         <h3 class="font-medium text-slate-800 mb-4">Add a question</h3>
         <form wire:submit="addQuestion" class="space-y-4">
             <div>
