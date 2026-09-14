@@ -1,9 +1,17 @@
 <div class="py-8 max-w-3xl mx-auto px-4 space-y-6">
     <div class="flex items-center justify-between">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">{{ $quiz->title }}</h2>
-        <a href="{{ route('quizzes.index') }}" wire:navigate class="text-sm text-indigo-600 hover:underline">
-            &larr; Back to quizzes
-        </a>
+        <div class="flex items-center gap-4">
+            @if ($questions->isNotEmpty())
+                <a href="{{ route('sessions.create', $quiz) }}" wire:navigate
+                    class="text-sm rounded-lg bg-emerald-600 text-white px-3 py-1.5 font-medium hover:bg-emerald-500">
+                    Start session
+                </a>
+            @endif
+            <a href="{{ route('quizzes.index') }}" wire:navigate class="text-sm text-indigo-600 hover:underline">
+                &larr; Back to quizzes
+            </a>
+        </div>
     </div>
 
     <div class="bg-white shadow rounded-lg p-6">

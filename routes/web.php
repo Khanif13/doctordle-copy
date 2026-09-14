@@ -4,6 +4,8 @@ use App\Livewire\Quizzes\Index as QuizzesIndex;
 use App\Livewire\Quizzes\Manage as QuizzesManage;
 use App\Livewire\Sessions\Create as SessionsCreate;
 use App\Livewire\Sessions\HostLobby as SessionsHostLobby;
+use App\Livewire\Sessions\Join as SessionsJoin;
+use App\Livewire\Sessions\PlayerLobby as SessionsPlayerLobby;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
@@ -27,6 +29,9 @@ Route::get('/quizzes/{quiz}/sessions/create', SessionsCreate::class)
 Route::get('/sessions/{gameSession}/host', SessionsHostLobby::class)
     ->middleware(['auth', 'verified'])
     ->name('sessions.host');
+
+Route::get('/join', SessionsJoin::class)->name('sessions.join');
+Route::get('/play/{gameSession}', SessionsPlayerLobby::class)->name('sessions.play');
 
 Route::view('profile', 'profile')
     ->middleware(['auth'])
